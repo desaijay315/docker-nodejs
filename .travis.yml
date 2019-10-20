@@ -1,22 +1,23 @@
+language: generic
 sudo: required
 services:
   - docker
 
 before_install:
-  - docker build -t jd/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t beingjd/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run jd/react-test npm test -- --coverage
+  - docker run -e CI=true beingjd/react-test npm test
 
 after_success:
-  - docker build -t jd/docker-client ./client
-  - docker build -t jd/docker-nginx ./nginx
-  - docker build -t jd/docker-server ./server
-  - docker build -t jd/docker-worker ./worker
+  - docker build -t beingjd/docker-client ./client
+  - docker build -t beingjd/docker-nginx ./nginx
+  - docker build -t beingjd/docker-server ./server
+  - docker build -t beingjd/docker-worker ./worker
   #Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to the dockerhub
-  - docker push jd/docker-client
-  - docker push jd/docker-nginx
-  - docker push jd/docker-server
-  - docker push jd/docker-worker
+  - docker push beingjd/docker-client
+  - docker push beingjd/docker-nginx
+  - docker push beingjd/docker-server
+  - docker push beingjd/docker-worker

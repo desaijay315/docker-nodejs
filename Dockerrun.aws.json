@@ -1,0 +1,69 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "beingjd/docker-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "beingjd/docker-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "beingjd/docker-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "beingjd/docker-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "beingjd/docker-client",
+      "hostname": "client",
+      "essential": false
+    },{
+      "name": "server",
+      "image": "beingjd/docker-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name":"worker",
+      "image": "beingjd/docker-worker",
+      "hostname": "worker",
+      "essential": false
+    },{
+      "name": "nginx",
+      "image": "beingjd/docker-nginx",
+      "essential": true,
+      "portMappings":[
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client","server"]
+    }
+  ]
+}

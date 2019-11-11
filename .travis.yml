@@ -16,8 +16,20 @@ after_success:
   - docker build -t beingjd/docker-worker ./worker
   #Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # Take those images and push them to the dockerhub
+  # Take those images and push them to the http://hub.docker.com
   - docker push beingjd/docker-client
   - docker push beingjd/docker-nginx
   - docker push beingjd/docker-server
   - docker push beingjd/docker-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-south-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-ap-south-1-583044482327
+  bucket_path: docker-multi
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY

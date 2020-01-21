@@ -4,23 +4,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t beingjd/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t desaijay315/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true beingjd/react-test npm test
+  - docker run -e CI=true desaijay315/react-test npm test
 
 after_success:
-  - docker build -t beingjd/docker-client ./client
-  - docker build -t beingjd/docker-nginx ./nginx
-  - docker build -t beingjd/docker-server ./server
-  - docker build -t beingjd/docker-worker ./worker
+  - docker build -t desaijay315/docker-client ./client
+  - docker build -t desaijay315/docker-nginx ./nginx
+  - docker build -t desaijay315/docker-server ./server
+  - docker build -t desaijay315/docker-worker ./worker
   #Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to the http://hub.docker.com
-  - docker push beingjd/docker-client
-  - docker push beingjd/docker-nginx
-  - docker push beingjd/docker-server
-  - docker push beingjd/docker-worker
+  - docker push desaijay315/docker-client
+  - docker push desaijay315/docker-nginx
+  - docker push desaijay315/docker-server
+  - docker push desaijay315/docker-worker
 
 # deploy:
 #   provider: elasticbeanstalk
